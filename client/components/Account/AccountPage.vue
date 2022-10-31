@@ -17,6 +17,12 @@
       <LogoutForm />
       <DeleteAccountForm />
     </section>
+    <section>
+      <header>
+        <h2>Time management</h2>
+      </header>
+      <TimeManagementForm />
+    </section>
   </main>
 </template>
 
@@ -24,6 +30,7 @@
 import ChangeUsernameForm from '@/components/Account/ChangeUsernameForm.vue';
 import ChangePasswordForm from '@/components/Account/ChangePasswordForm.vue';
 import DeleteAccountForm from '@/components/Account/DeleteAccountForm.vue';
+import TimeManagementForm from '@/components/Account/TimeManagementForm.vue';
 import LogoutForm from '@/components/Account/LogoutForm.vue';
 
 export default {
