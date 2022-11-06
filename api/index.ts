@@ -73,6 +73,9 @@ app.use(userValidator.isCurrentSessionUserExists);
 // Add routers from routes folder
 app.use('/api/users', userRouter);
 app.use('/api/freets', freetRouter);
+app.use('/api/follows', followRouter);
+app.use('/api/feed', feedRouter); 
+app.use('/api/timemanager', timeManagerRouter);
 
 // Catch all the other routes and display error message
 app.all('*', (req: Request, res: Response) => {
