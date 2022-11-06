@@ -20,8 +20,13 @@ export default {
     }).then(res => res.json()).then(res => {
       const user = res.user;
       this.$store.commit('setUsername', user ? user.username : null);
-      const sessionStartTime = res.sessionStartTime;
       this.$store.commit('setSessionStartTime', res.sessionStartTime ?? null);
+    });
+
+    fetch('/api/timemanager', {
+      credentials: 'same-origin' // Sends express-session credentials with request
+    }).then(res => res.json()).then(res => {
+      this.$store.commit('setTimeLimit', res.timeLimit ?? null);
     });
 
     // Clear alerts on page refresh

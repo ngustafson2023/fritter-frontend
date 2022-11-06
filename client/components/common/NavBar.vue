@@ -9,7 +9,9 @@
       <h1 class="title">
         Fritter
       </h1>
-      <SessionDuration :date="$store.state.sessionStartTime"/>
+      <SessionDuration 
+        :date="$store.state.sessionStartTime"
+        :timeLimit="$store.state.timeLimit" />
     </div>
     <div class="right">
       <router-link to="/">

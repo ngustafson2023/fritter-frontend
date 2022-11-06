@@ -10,6 +10,9 @@ export default {
     props:{
         date: {
             required: true
+        },
+        timeLimit: {
+            required: true
         }
     },
     data: function() {
@@ -34,6 +37,9 @@ export default {
             } else {
                 this.clearDiffs();
             }
+            if (this.timeLimit) {
+                this.checkTimeLimit();
+            }
         }, 1000);
     },
     destroyed() {
@@ -56,11 +62,18 @@ export default {
             this.hours = 0;
             this.minutes = 0;
             this.seconds = 0;
+        },
+        checkTimeLimit() {
+            const mins = (this.days * 24 * 60) + (this.hours * 60) + this.mins;
+            if (parseInt(this.timeLimit) === this.mins) {
+                this.$store.commit('alert', {
+                    message: 'Time limit reached', status: 'error'
+                });
+            }
         }
     }
 }
 </script>
 
 <style scoped>
-
 </style>

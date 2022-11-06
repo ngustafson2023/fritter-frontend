@@ -13,6 +13,7 @@ const store = new Vuex.Store({
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
     sessionStartTime: null, // Time that current session started
+    timeLimit: null,
     alerts: {} // global success/error messages encountered during submissions to non-visible forms
   },
   mutations: {
@@ -46,6 +47,9 @@ const store = new Vuex.Store({
        * @param sessionStartTime - new start time to set
        */
       state.sessionStartTime = sessionStartTime;
+    },
+    setTimeLimit(state, timeLimit) {
+      state.timeLimit = timeLimit;
     },
     updateFreets(state, freets) {
       /**
