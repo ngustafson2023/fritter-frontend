@@ -5,24 +5,19 @@
   <main>
     <section>
       <header>
-        <h2>Account settings for @{{ $store.state.username }}</h2>
+        <h2>Account Management</h2>
       </header>
       <ChangeUsernameForm />
       <ChangePasswordForm />
-    </section>
-    <section>
-      <header>
-        <h2>Account management</h2>
-      </header>
       <LogoutForm />
       <DeleteAccountForm />
     </section>
-<!--     <section>
+    <section>
       <header>
-        <h2>Time management</h2>
+        <h2>Time Management</h2>
       </header>
       <TimeManagementForm />
-    </section> -->
+    </section>
   </main>
 </template>
 
@@ -30,8 +25,8 @@
 import ChangeUsernameForm from '@/components/Account/ChangeUsernameForm.vue';
 import ChangePasswordForm from '@/components/Account/ChangePasswordForm.vue';
 import DeleteAccountForm from '@/components/Account/DeleteAccountForm.vue';
-//import TimeManagementForm from '@/components/Account/TimeManagementForm.vue';
 import LogoutForm from '@/components/Account/LogoutForm.vue';
+import TimeManagementForm from '@/components/TimeManagement/TimeManagementForm.vue';
 
 export default {
   name: 'AccountPage',
@@ -39,7 +34,8 @@ export default {
     ChangeUsernameForm,
     ChangePasswordForm,
     DeleteAccountForm,
-    LogoutForm
+    LogoutForm,
+    TimeManagementForm
   }
 };
 </script>

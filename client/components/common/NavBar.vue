@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import SessionDuration from '@/components/common/SessionDuration.vue';
+import SessionDuration from '@/components/TimeManagement/SessionDuration.vue';
 
 export default {
   name: 'NavBar',
