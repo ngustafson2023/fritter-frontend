@@ -20,6 +20,8 @@ export default {
     }).then(res => res.json()).then(res => {
       const user = res.user;
       this.$store.commit('setUsername', user ? user.username : null);
+      const sessionStartTime = res.sessionStartTime;
+      this.$store.commit('setSessionStartTime', res.sessionStartTime ?? null);
     });
 
     // Clear alerts on page refresh

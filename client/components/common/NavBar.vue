@@ -9,6 +9,7 @@
       <h1 class="title">
         Fritter
       </h1>
+      <SessionDuration :date="$store.state.sessionStartTime"/>
     </div>
     <div class="right">
       <router-link to="/">
@@ -38,6 +39,15 @@
     </section>
   </nav>
 </template>
+
+<script>
+import SessionDuration from '@/components/common/SessionDuration.vue';
+
+export default {
+  name: 'NavBar',
+  components: {SessionDuration}
+};
+</script>
 
 <style scoped>
 nav {

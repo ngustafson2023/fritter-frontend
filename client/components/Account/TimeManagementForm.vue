@@ -1,6 +1,6 @@
 <!-- Form for setting time manager -->
 
-<script>
+<!-- <script>
 import BlockForm from '@/components/common/BlockForm.vue';
 
 export default {
@@ -26,3 +26,4 @@ export default {
   }
 };
 </script>
+ -->

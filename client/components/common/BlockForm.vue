@@ -99,6 +99,10 @@ export default {
           this.$store.commit('setUsername', res.user ? res.user.username : null);
         }
 
+        if (this.setSessionStartTime) {
+          this.$store.commit('setSessionStartTime', this.newSessionStartTime);
+        }
+
         if (this.refreshFreets) {
           this.$store.commit('refreshFreets');
         }

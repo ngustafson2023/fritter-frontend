@@ -11,6 +11,8 @@ export default {
       url: '/api/users',
       method: 'DELETE',
       setUsername: true,
+      setSessionStartTime: true,
+      newSessionStartTime: null,
       title: 'Delete account',
       fields: [],
       content: 'Deleting your account is permanent and irreversible. Proceed only if you understand these consequences.',

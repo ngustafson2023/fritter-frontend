@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     filter: null, // Username to filter shown freets by (null = show all)
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
+    sessionStartTime: null, // Time that current session started
     alerts: {} // global success/error messages encountered during submissions to non-visible forms
   },
   mutations: {
@@ -37,6 +38,14 @@ const store = new Vuex.Store({
        * @param filter - Username of the user to fitler freets by
        */
       state.filter = filter;
+    },
+    setSessionStartTime(state, sessionStartTime) {
+      /**
+       * Update the stored start time of the current sesison to
+       * the specified one.
+       * @param sessionStartTime - new start time to set
+       */
+      state.sessionStartTime = sessionStartTime;
     },
     updateFreets(state, freets) {
       /**

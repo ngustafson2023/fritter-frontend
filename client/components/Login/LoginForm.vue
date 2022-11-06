@@ -12,6 +12,8 @@ export default {
       method: 'POST',
       hasBody: true,
       setUsername: true,
+      setSessionStartTime: true,
+      newSessionStartTime: new Date(),
       fields: [
         {id: 'username', label: 'Username', value: ''},
         {id: 'password', label: 'Password', value: ''}
