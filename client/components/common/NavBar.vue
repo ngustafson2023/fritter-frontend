@@ -11,7 +11,8 @@
       </h1>
       <SessionDuration 
         :date="$store.state.sessionStartTime"
-        :timeLimit="$store.state.timeLimit" />
+        :timeLimit="$store.state.timeLimit" 
+        :milestone="$store.state.milestone" />
     </div>
     <div class="right">
       <router-link to="/">

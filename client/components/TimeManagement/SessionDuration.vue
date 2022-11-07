@@ -1,7 +1,7 @@
 <!-- Component that displays the duration of the current session -->
 
 <template>
-    <span>{{ hours > 0 ? hours + ':' : ''}}{{ minutes < 10 ? '0' + minutes : minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</span>
+    <span class="duration" v-bind:class="{emphasized: isEmphasized}">{{ hours > 0 ? hours + ':' : ''}}{{ minutes < 10 ? '0' + minutes : minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</span>
 </template>
 
 <script>
@@ -13,10 +13,14 @@ export default {
         },
         timeLimit: {
             required: true
+        },
+        milestone: {
+            required: true
         }
     },
     data: function() {
         return {
+            isEmphasized: false,
             interval: null,
             days: 0,
             hours: 0,
@@ -40,6 +44,10 @@ export default {
             if (this.timeLimit) {
                 this.checkTimeLimit();
             }
+            if (this.milestone) {
+                this.checkEmphasis();
+            }
+
         }, 1000);
     },
     destroyed() {
@@ -75,10 +83,23 @@ export default {
                     this.$router.push({name: 'Login'});
                 });
             }
+        },
+        checkEmphasis(){
+            const totalMinutes = (this.days * 24 * 60) + (this.hours * 60) + this.minutes;
+            if (this.milestone && totalMinutes % this.milestone === 0 && this.seconds === 0) {
+                // start emphasis interval
+                this.isEmphasized = true;
+            } else if (this.milestone && totalMinutes % this.milestone === 0 && this.seconds === 3) {
+                // end emphasis interval
+                this.isEmphasized = false;
+            }
         }
     }
 }
 </script>
 
 <style scoped>
+.emphasized {
+    color: green;
+}
 </style>
