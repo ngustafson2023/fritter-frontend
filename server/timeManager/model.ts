@@ -13,7 +13,8 @@ export type TimeManager = {
     userId: Types.ObjectId;
     milestone: number;
     timeLimit: number;
-    isEnabled: boolean;
+    timeLimitEnabled: boolean;
+    milestoneEnabled: boolean;
 }
 
 export type PopulatedTimeManager = {
@@ -21,7 +22,8 @@ export type PopulatedTimeManager = {
     userId: User;
     milestone: number;
     timeLimit: number;
-    isEnabled: boolean;
+    timeLimitEnabled: boolean;
+    milestoneEnabled: boolean;
 }
 
 // Mongoose schema definition for interfacing with a MongoDB table
@@ -45,7 +47,11 @@ const TimeManagerSchema = new Schema<TimeManager>({
     type: Number,
     required: true
   },
-  isEnabled: {
+  timeLimitEnabled: {
+    type: Boolean,
+    required: true
+  },
+  milestoneEnabled: {
     type: Boolean,
     required: true
   }

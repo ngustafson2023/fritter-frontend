@@ -4,12 +4,16 @@
     <form @submit.prevent="submit">
         <h3>{{ title }}</h3>
         <article v-if="fields.length">
-            <p>Enable Time Limit?</p>
+            <p>Enable Milestone?</p>
             <label class="switch">
-                <input type="checkbox" v-model="isEnabled">
+                <input type="checkbox" v-model="milestoneEnabled">
                 <span class="slider"></span>
             </label>
-            <p>{{ $store.state.timeLimit }}</p>
+            <p>Enable Time Limit?</p>
+            <label class="switch">
+                <input type="checkbox" v-model="timeLimitEnabled">
+                <span class="slider"></span>
+            </label>
             <div v-for="field in fields" :key="field.id">
                 <label :for="field.id">{{ field.label }}:</label>
                 <textarea v-if="field.id === 'content'" :name="field.id" :value="field.value"
@@ -39,7 +43,8 @@ export default {
     name: 'TimeManagementForm',
     data() {
         return {
-            isEnabled: false,
+            timeLimitEnabled: false,
+            milestoneEnabled: false,
             url: '/api/timemanager',
             method: 'PUT',
             hasBody: true,
@@ -54,10 +59,16 @@ export default {
                 this.$set(this.alerts, message, 'success');
                 setTimeout(() => this.$delete(this.alerts, message), 3000);
                 fetch('/api/timemanager').then(res => res.json()).then(res => {
-                    if (res.isEnabled === 'true') {
+                    if (res.timeLimitEnabled === 'true') {
                         this.$store.commit('setTimeLimit', parseInt(res.timeLimit));
                      } else {
                         this.$store.commit('setTimeLimit', null);
+                    }
+
+                    if (res.milestoneEnabled === 'true') {
+                        this.$store.commit('setMilestone', parseInt(res.milestone));
+                     } else {
+                        this.$store.commit('setMilestone', null);
                     }
                 });
             }
@@ -80,7 +91,8 @@ export default {
                         field.value = '';
                         return [id, value];
                 });
-                fieldsMap.push(['isEnabled', this.isEnabled.toString()]);
+                fieldsMap.push(['timeLimitEnabled', this.timeLimitEnabled.toString()]);
+                fieldsMap.push(['milestoneEnabled', this.milestoneEnabled.toString()]);
                 options.body = JSON.stringify(Object.fromEntries(fieldsMap));
             }
 

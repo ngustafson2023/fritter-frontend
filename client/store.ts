@@ -14,6 +14,7 @@ const store = new Vuex.Store({
     username: null, // Username of the logged in user
     sessionStartTime: null, // Time that current session started
     timeLimit: null,
+    milestone: null,
     alerts: {} // global success/error messages encountered during submissions to non-visible forms
   },
   mutations: {
@@ -50,6 +51,9 @@ const store = new Vuex.Store({
     },
     setTimeLimit(state, timeLimit) {
       state.timeLimit = timeLimit;
+    },
+    setMilestone(state, milestone) {
+      state.milestone = milestone;
     },
     updateFreets(state, freets) {
       /**

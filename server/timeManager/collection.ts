@@ -16,15 +16,17 @@ import UserCollection from '../user/collection';
      * @param {string} userId - The id of the user
      * @param {number} milestone - The milestone
      * @param {number} timeLimit - The time limit
-     * @param {string} isEnabled
+     * @param {string} timeLimitEnabled
+     * @param {string} milestoneEnabled
      * @return {Promise<HydratedDocument<TimeManager>>} - The newly created TimeManager
      */
-    static async addOne(userId: Types.ObjectId | string, milestone: number, timeLimit: number, isEnabled: string): Promise<HydratedDocument<TimeManager>> {
+    static async addOne(userId: Types.ObjectId | string, milestone: number, timeLimit: number, timeLimitEnabled: string, milestoneEnabled: string): Promise<HydratedDocument<TimeManager>> {
         const timeManager = new TimeManagerModel({
             userId,
             milestone,
             timeLimit,
-            isEnabled: isEnabled === 'true'
+            timeLimitEnabled: timeLimitEnabled === 'true',
+            milestoneEnabled: milestoneEnabled === 'true'
         });
         await timeManager.save(); // Saves freet to MongoDB
         return timeManager.populate('userId');
@@ -45,7 +47,8 @@ import UserCollection from '../user/collection';
         if (timeManagerDetails.timeLimit) {
             timeManager.timeLimit = parseInt(timeManagerDetails.timeLimit);
         }
-        timeManager.isEnabled = (timeManagerDetails.isEnabled === 'true') ? true : false;
+        timeManager.timeLimitEnabled = (timeManagerDetails.timeLimitEnabled === 'true') ? true : false;
+        timeManager.milestoneEnabled = (timeManagerDetails.milestoneEnabled === 'true') ? true : false;
         await timeManager.save(); // Saves freet to MongoDB
         return timeManager.populate('userId');
     }

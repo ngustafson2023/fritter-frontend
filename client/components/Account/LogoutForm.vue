@@ -22,6 +22,7 @@ export default {
           message: 'You are now signed out!', status: 'success'
         });
         this.$store.commit('setTimeLimit', null);
+        this.$store.commit('setMilestone', null);
       }
     };
   }
