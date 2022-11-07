@@ -64,10 +64,15 @@ export default {
             this.seconds = 0;
         },
         checkTimeLimit() {
-            const mins = (this.days * 24 * 60) + (this.hours * 60) + this.mins;
-            if (parseInt(this.timeLimit) === this.mins) {
+            const totalMinutes = (this.days * 24 * 60) + (this.hours * 60) + this.minutes;
+            if (parseInt(this.timeLimit) === totalMinutes) {
                 this.$store.commit('alert', {
                     message: 'Time limit reached', status: 'error'
+                });
+                fetch('/api/users/session', {method: 'DELETE'}).then(res => {
+                    this.$store.commit('setSessionStartTime', null);
+                    this.$store.commit('setUsername', null);
+                    this.$router.push({name: 'Login'});
                 });
             }
         }

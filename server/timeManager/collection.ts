@@ -16,13 +16,15 @@ import UserCollection from '../user/collection';
      * @param {string} userId - The id of the user
      * @param {number} milestone - The milestone
      * @param {number} timeLimit - The time limit
+     * @param {string} isEnabled
      * @return {Promise<HydratedDocument<TimeManager>>} - The newly created TimeManager
      */
-    static async addOne(userId: Types.ObjectId | string, milestone: number, timeLimit: number): Promise<HydratedDocument<TimeManager>> {
+    static async addOne(userId: Types.ObjectId | string, milestone: number, timeLimit: number, isEnabled: string): Promise<HydratedDocument<TimeManager>> {
         const timeManager = new TimeManagerModel({
             userId,
             milestone,
-            timeLimit
+            timeLimit,
+            isEnabled: isEnabled === 'true'
         });
         await timeManager.save(); // Saves freet to MongoDB
         return timeManager.populate('userId');
@@ -43,6 +45,7 @@ import UserCollection from '../user/collection';
         if (timeManagerDetails.timeLimit) {
             timeManager.timeLimit = parseInt(timeManagerDetails.timeLimit);
         }
+        timeManager.isEnabled = (timeManagerDetails.isEnabled === 'true') ? true : false;
         await timeManager.save(); // Saves freet to MongoDB
         return timeManager.populate('userId');
     }

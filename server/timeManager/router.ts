@@ -36,6 +36,7 @@ const router = express.Router();
  *
  * @param {string} milestone
  * @param {string} timeLimit
+ * @param {string} isEnabled
  * @return {TimeManagerResponse} - The created Time Manager
  * @throws {403} - If the user is not logged in
  * @throws {400} - If milestone is empty or non-numeric
@@ -54,7 +55,7 @@ router.post(
     ],
     async (req: Request, res: Response) => {
       const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-      const timeManager = await TimeManagerCollection.addOne(userId, parseInt(req.body.milestone), parseInt(req.body.timeLimit));
+      const timeManager = await TimeManagerCollection.addOne(userId, parseInt(req.body.milestone), parseInt(req.body.timeLimit), req.body.isEnabled);
   
       res.status(201).json({
         message: 'Your Time Manager was created successfully.',
@@ -70,6 +71,7 @@ router.post(
  *
  * @param {string} milestone
  * @param {string} timeLimit
+ * @param {string} isEnabled
  * @return {TimeManagerResponse} - The created Time Manager
  * @throws {403} - If the user is not logged in
  * @throws {400} - If milestone or time limit is non-numeric

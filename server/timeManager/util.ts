@@ -7,6 +7,7 @@ type TimeManagerResponse = {
   userId: string;
   milestone: string;
   timeLimit: string;
+  isEnabled: string;
 };
 
 /**
@@ -29,7 +30,8 @@ type TimeManagerResponse = {
       _id: timeManagerCopy._id.toString(),
       userId: username,
       milestone: timeManagerCopy.milestone.toString(),
-      timeLimit: timeManagerCopy.timeLimit.toString()
+      timeLimit: timeManagerCopy.timeLimit.toString(),
+      isEnabled: timeManagerCopy.isEnabled.toString()
     };
   };
   
