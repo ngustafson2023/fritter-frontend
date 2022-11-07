@@ -23,12 +23,6 @@ export default {
       this.$store.commit('setSessionStartTime', res.sessionStartTime ?? null);
     });
 
-    fetch('/api/timemanager', {
-      credentials: 'same-origin' // Sends express-session credentials with request
-    }).then(res => res.json()).then(res => {
-      this.$store.commit('setTimeLimit', res.timeLimit ?? null);
-    });
-
     // Clear alerts on page refresh
     this.$store.state.alerts = {};
   }

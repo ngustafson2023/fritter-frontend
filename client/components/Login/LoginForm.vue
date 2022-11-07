@@ -24,6 +24,22 @@ export default {
         this.$store.commit('alert', {
           message: 'You are now signed in!', status: 'success'
         });
+        try {
+          const exists = fetch('/api/timemanager').then(res => {
+        if (!res.ok) {
+          throw new Error(); // time manager does not exist, time limit is null
+        }
+        return res.json()
+      }).then(res => {
+        if (res.isEnabled === 'true') {
+          this.$store.commit('setTimeLimit', parseInt(res.timeLimit));
+        } else {
+          this.$store.commit('setTimeLimit', null);
+        }
+      });
+    } catch (e) {
+      this.$store.commit('setTimeLimit', null);
+    }
       }
     };
   }

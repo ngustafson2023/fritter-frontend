@@ -21,6 +21,7 @@ export default {
         this.$store.commit('alert', {
           message: 'You are now signed out!', status: 'success'
         });
+        this.$store.commit('setTimeLimit', null);
       }
     };
   }
