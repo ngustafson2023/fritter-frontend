@@ -9,6 +9,7 @@ Vue.use(Vuex);
  */
 const store = new Vuex.Store({
   state: {
+    followedUsers: [],
     filter: null, // Username to filter shown freets by (null = show all)
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
@@ -55,20 +56,15 @@ const store = new Vuex.Store({
     setMilestone(state, milestone) {
       state.milestone = milestone;
     },
-    updateFreets(state, freets) {
+    setFollowedUsers(state, followedUsers) {
+      state.followedUsers = followedUsers;
+    },
+    setFreets(state, freets) {
       /**
        * Update the stored freets to the provided freets.
        * @param freets - Freets to store
        */
       state.freets = freets;
-    },
-    async refreshFreets(state) {
-      /**
-       * Request the server for the currently available freets.
-       */
-      const url = state.filter ? `/api/users/${state.filter}/freets` : '/api/freets';
-      const res = await fetch(url).then(async r => r.json());
-      state.freets = res;
     }
   },
   // Store data across page refreshes, only discard on browser close

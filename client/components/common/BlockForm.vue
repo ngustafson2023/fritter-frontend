@@ -66,6 +66,15 @@ export default {
     };
   },
   methods: {
+    refreshFreetsFn(){
+      fetch('/api/freets').then(res => res.json()).then(res => {
+        const newFreets = res.filter(el => {
+          return this.$store.state.followedUsers.includes(el.author) ||
+            el.author === this.$store.state.username;
+        });
+        this.$store.commit('setFreets', newFreets);
+      });
+    },
     async submit() {
       /**
         * Submits a form with the specified options from data().
@@ -104,7 +113,8 @@ export default {
         }
 
         if (this.refreshFreets) {
-          this.$store.commit('refreshFreets');
+          //this.$store.commit('refreshFreets');
+          this.refreshFreetsFn();
         }
 
         if (this.callback) {

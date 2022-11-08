@@ -25,20 +25,20 @@
       <header>
         <div class="left">
           <h2>
-            Viewing all freets
-            <span v-if="$store.state.filter">
+            Your Feed
+            <!-- <span v-if="$store.state.filter">
               by @{{ $store.state.filter }}
-            </span>
+            </span> -->
           </h2>
         </div>
-        <div class="right">
+        <!-- <div class="right">
           <GetFreetsForm
             ref="getFreetsForm"
             value="author"
             placeholder="🔍 Filter by author (optional)"
             button="🔄 Get freets"
           />
-        </div>
+        </div> -->
       </header>
       <section
         v-if="$store.state.freets.length"
@@ -47,6 +47,7 @@
           v-for="freet in $store.state.freets"
           :key="freet.id"
           :freet="freet"
+          :refreshFreets="refreshFreets"
         />
       </section>
       <article
@@ -66,8 +67,35 @@ import GetFreetsForm from '@/components/Freet/GetFreetsForm.vue';
 export default {
   name: 'FreetPage',
   components: {FreetComponent, GetFreetsForm, CreateFreetForm},
+  data() {
+    return {
+      followedUsers: []
+    }
+  },
   mounted() {
-    this.$refs.getFreetsForm.submit();
+    //collect followed users
+    
+    fetch('/api/follows').then(res => res.json()).then(res => {
+      this.$store.commit('setFollowedUsers', res.map(el => el.followingId));
+    });
+    //this.refreshFreets();
+    this.allFreets();
+  },
+  methods: {
+    refreshFreets() {
+      fetch('/api/freets').then(res => res.json()).then(res => {
+        const newFreets = res.filter(el => {
+          return this.$store.state.followedUsers.includes(el.author) ||
+            el.author === this.$store.state.username;
+        });
+        this.$store.commit('setFreets', newFreets);
+      });
+    },
+    allFreets() {
+      fetch('/api/freets').then(res => res.json()).then(res => {
+        this.$store.commit('setFreets', res);
+      });
+    }
   }
 };
 </script>
