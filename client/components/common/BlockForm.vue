@@ -69,8 +69,14 @@ export default {
     refreshFreetsFn(){
       fetch('/api/freets').then(res => res.json()).then(res => {
         const newFreets = res.filter(el => {
-          return this.$store.state.followedUsers.includes(el.author) ||
-            el.author === this.$store.state.username;
+          if (this.$store.state.isRecommendedEnabled) {
+            return this.$store.state.followedUsers.includes(el.author) ||
+              el.author === this.$store.state.username ||
+              this.$store.state.recommendedFreets.includes(el._id);
+          } else {
+            return this.$store.state.followedUsers.includes(el.author) ||
+              el.author === this.$store.state.username;
+          }
         });
         this.$store.commit('setFreets', newFreets);
       });

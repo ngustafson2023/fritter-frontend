@@ -24,11 +24,14 @@
     <section v-if="$store.state.username">
       <header>
         <div class="left">
-          <h2>
-            Your Feed
+          <h2 v-if="$store.state.isRecommendedEnabled">
+            Your Feed (includes Recommended Content)
             <!-- <span v-if="$store.state.filter">
               by @{{ $store.state.filter }}
             </span> -->
+          </h2>
+          <h2 v-else>
+            Your Feed (without Recommended Content)
           </h2>
         </div>
         <!-- <div class="right">
@@ -78,16 +81,22 @@ export default {
     fetch('/api/follows').then(res => res.json()).then(res => {
       this.$store.commit('setFollowedUsers', res.map(el => el.followingId));
     });
-    //this.refreshFreets();
-    this.allFreets();
+    //this.allFreets();
     this.generateRecommendedFreets();
+    this.refreshFreets();
   },
   methods: {
     refreshFreets() {
       fetch('/api/freets').then(res => res.json()).then(res => {
         const newFreets = res.filter(el => {
-          return this.$store.state.followedUsers.includes(el.author) ||
-            el.author === this.$store.state.username;
+          if (this.$store.state.isRecommendedEnabled) {
+            return this.$store.state.followedUsers.includes(el.author) ||
+              el.author === this.$store.state.username ||
+              this.$store.state.recommendedFreets.includes(el._id);
+          } else {
+            return this.$store.state.followedUsers.includes(el.author) ||
+              el.author === this.$store.state.username;
+          }
         });
         this.$store.commit('setFreets', newFreets);
       });
@@ -100,7 +109,7 @@ export default {
     generateRecommendedFreets() {
       //recommendation alg: the most recent half of all Freets
       fetch('/api/freets').then(res => res.json()).then(res => {
-        const newRecommendedFreets = res.slice(0, Math.floor(res.length / 2));
+        const newRecommendedFreets = res.map(el => el._id).slice(0, Math.floor(res.length / 2));
         this.$store.commit('setRecommendedFreets', newRecommendedFreets);
       });
     }

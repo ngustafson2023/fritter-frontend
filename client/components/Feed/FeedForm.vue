@@ -28,7 +28,7 @@ export default {
     name: 'FeedForm',
     data() {
         return {
-            recommendedEnabled: true,
+            recommendedEnabled: this.$store.state.isRecommendedEnabled,
             url: '/api/feed',
             method: 'PUT',
             hasBody: true,
@@ -39,8 +39,8 @@ export default {
                 this.$set(this.alerts, message, 'success');
                 setTimeout(() => this.$delete(this.alerts, message), 3000);
                 fetch('/api/feed').then(res => res.json()).then(res => {
-                    const isRecommendedEnabled = res.isRecommendedEnabled === 'true';
-                    this.$store.commit('setIsRecommendedEnabled', isRecommendedEnabled);
+                    this.$store.commit('setIsRecommendedEnabled', res.isRecommendedEnabled);
+                    console.log(this.$store.state.isRecommendedEnabled);
                 });
             }
         };
