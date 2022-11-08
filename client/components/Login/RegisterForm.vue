@@ -19,13 +19,21 @@ export default {
         {id: 'password', label: 'Password', value: ''}
       ],
       title: 'Create account',
-      callback: () => {
+      callback: async () => {
         const message = 'Successfully created an account!';
         this.$router.push({name: 'Home'});
         this.$set(this.alerts, message, 'success');
         setTimeout(() => this.$delete(this.alerts, message), 3000);
+        
+        const options = {
+          method: 'POST',
+          body: JSON.stringify({isRecommendedEnabled: true}),
+          headers: {'Content-Type': 'application/json'},
+          credentials: 'same-origin' // Sends express-session credentials with request
+        }
+        await fetch('/api/feed', options);
       }
-    };
+    }
   }
 };
 </script>

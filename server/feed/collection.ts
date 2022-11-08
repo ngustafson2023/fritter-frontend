@@ -31,13 +31,12 @@ class FeedCollection {
    * Modify a Feed
    *
    * @param {string} userId - The id of the user
-   * @param {Object} feedDetails - An object with the user's updated preferences
+   * @param {boolean} isRecommendedEnabled - An object with the user's updated preferences
    * @return {Promise<HydratedDocument<TimeManager>>} - The newly modified TimeManager
    */
-  static async updateOne(userId: Types.ObjectId | string, feedDetails: any): Promise<HydratedDocument<Feed>> {
-    const isRecommendedEnabled = feedDetails.isRecommendedEnabled;
+  static async updateOne(userId: Types.ObjectId | string, isRecommendedEnabled: boolean): Promise<HydratedDocument<Feed>> {
     const feed = await FeedCollection.findByUserId(userId);
-    if (isRecommendedEnabled === 'true') {
+    if (isRecommendedEnabled === true) {
       feed.isRecommendedEnabled = true;
     } else {  // isRecommendedEnabled === 'false'
       feed.isRecommendedEnabled = false;

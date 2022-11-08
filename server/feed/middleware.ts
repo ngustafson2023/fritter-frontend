@@ -36,7 +36,7 @@ import FeedCollection from './collection';
 
 const isValidRecommendedEnabled = (req: Request, res: Response, next: NextFunction) => {
   const isRecommendedEnabled = req.body.isRecommendedEnabled;
-  if (isRecommendedEnabled !== 'true' && isRecommendedEnabled !== 'false') {
+  if (isRecommendedEnabled !== true && isRecommendedEnabled !== false) {
     res.status(400).json({
       error: 'isRecommendedEnabled must be true or false.'
     });

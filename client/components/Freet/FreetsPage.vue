@@ -15,13 +15,13 @@
       <article>
         <h3>
           <router-link to="/login">
-            Sign in
+            Sign in or Register
           </router-link>
           to create, edit, and delete freets.
         </h3>
       </article>
     </section>
-    <section>
+    <section v-if="$store.state.username">
       <header>
         <div class="left">
           <h2>
@@ -80,6 +80,7 @@ export default {
     });
     //this.refreshFreets();
     this.allFreets();
+    this.generateRecommendedFreets();
   },
   methods: {
     refreshFreets() {
@@ -94,6 +95,13 @@ export default {
     allFreets() {
       fetch('/api/freets').then(res => res.json()).then(res => {
         this.$store.commit('setFreets', res);
+      });
+    },
+    generateRecommendedFreets() {
+      //recommendation alg: the most recent half of all Freets
+      fetch('/api/freets').then(res => res.json()).then(res => {
+        const newRecommendedFreets = res.slice(0, Math.floor(res.length / 2));
+        this.$store.commit('setRecommendedFreets', newRecommendedFreets);
       });
     }
   }

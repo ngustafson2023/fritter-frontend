@@ -12,6 +12,8 @@ const store = new Vuex.Store({
     followedUsers: [],
     filter: null, // Username to filter shown freets by (null = show all)
     freets: [], // All freets created in the app
+    isRecommendedEnabled: true,
+    recommendedFreets: [],
     username: null, // Username of the logged in user
     sessionStartTime: null, // Time that current session started
     timeLimit: null,
@@ -65,6 +67,12 @@ const store = new Vuex.Store({
        * @param freets - Freets to store
        */
       state.freets = freets;
+    },
+    setRecommendedFreets(state, recommendedFreets) {
+      state.recommendedFreets = recommendedFreets;
+    },
+    setIsRecommendedEnabled(state, isRecommendedEnabled) {
+      state.isRecommendedEnabled = isRecommendedEnabled;
     }
   },
   // Store data across page refreshes, only discard on browser close

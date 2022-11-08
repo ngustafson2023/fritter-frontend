@@ -17,6 +17,7 @@
         <h2>Time Management</h2>
       </header>
       <TimeManagementForm />
+      <FeedForm />
     </section>
   </main>
 </template>
@@ -27,6 +28,7 @@ import ChangePasswordForm from '@/components/Account/ChangePasswordForm.vue';
 import DeleteAccountForm from '@/components/Account/DeleteAccountForm.vue';
 import LogoutForm from '@/components/Account/LogoutForm.vue';
 import TimeManagementForm from '@/components/TimeManagement/TimeManagementForm.vue';
+import FeedForm from '@/components/Feed/FeedForm.vue';
 
 export default {
   name: 'AccountPage',
@@ -35,7 +37,8 @@ export default {
     ChangePasswordForm,
     DeleteAccountForm,
     LogoutForm,
-    TimeManagementForm
+    TimeManagementForm,
+    FeedForm
   }
 };
 </script>
