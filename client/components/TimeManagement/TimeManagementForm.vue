@@ -4,7 +4,7 @@
     <form @submit.prevent="submit">
         <h3>{{ title }}</h3>
         <article v-if="fields.length">
-            <p>Enable Milestone?</p>
+            <p>Enable Milestone? (Duration will turn green after each cycle)</p>
             <label class="switch">
                 <input type="checkbox" v-model="milestoneEnabled">
                 <span class="slider"></span>
@@ -49,8 +49,8 @@ export default {
             method: 'PUT',
             hasBody: true,
             fields: [
-                { id: 'milestone', label: 'Milestone', value: '' },
-                { id: 'timeLimit', label: 'Time limit', value: '' }
+                { id: 'milestone', label: 'Milestone (mins)', value: '' },
+                { id: 'timeLimit', label: 'Time limit (mins)', value: '' }
             ],
             title: 'Set milestone and time limit',
             alerts: {}, // Displays success/error messages encountered during form submission

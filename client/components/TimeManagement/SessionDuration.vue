@@ -1,7 +1,7 @@
 <!-- Component that displays the duration of the current session -->
 
 <template>
-    <span class="duration" v-bind:class="{emphasized: isEmphasized}">{{ hours > 0 ? hours + ':' : ''}}{{ minutes < 10 ? '0' + minutes : minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</span>
+    <span class="duration" v-bind:class="{emphasized: isEmphasized}">Session Duration: {{ hours > 0 ? hours + ':' : ''}}{{ minutes < 10 ? '0' + minutes : minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</span>
 </template>
 
 <script>
@@ -101,5 +101,10 @@ export default {
 <style scoped>
 .emphasized {
     color: green;
+}
+
+span {
+    font-size: larger;
+    font-weight: bold;
 }
 </style>

@@ -9,6 +9,8 @@
       <h1 class="title">
         Fritter
       </h1>
+    </div>
+    <div class="center">
       <SessionDuration 
         :date="$store.state.sessionStartTime"
         :timeLimit="$store.state.timeLimit" 
@@ -82,6 +84,10 @@ img {
     gap: 16px;
     grid-auto-flow: column;
     align-items: center;
+}
+
+.center {
+  text-align: center;
 }
 
 .right a {
